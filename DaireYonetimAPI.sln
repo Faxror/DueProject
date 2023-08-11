@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaireYonetimAPI", "DaireYonetimAPI\DaireYonetimAPI.csproj", "{FEBB0CC8-AE64-47A7-B6E1-79607CBE4D08}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaireYönetimAPI.Entity", "DaireYönetimAPI\DaireYönetimAPI.Entity.csproj", "{4E57026F-CEB0-49EC-8D67-0A52AAC741C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaireYonetimAPI.DataAccess", "DaireYonetimAPI.DataAccess\DaireYonetimAPI.DataAccess.csproj", "{46B1E915-55BD-4FFB-AE6B-D54EC2EE8FF1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaireYonetimAPI.Business", "DaireYonetimAPI.Business\DaireYonetimAPI.Business.csproj", "{1FB56693-2519-48BD-BB79-773E8E20D93F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaireYonetimAPI.Models", "DaireYonetimAPI.Models\DaireYonetimAPI.Models.csproj", "{57A5354D-1D35-42D0-ACD2-E692D88F3898}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEBB0CC8-AE64-47A7-B6E1-79607CBE4D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEBB0CC8-AE64-47A7-B6E1-79607CBE4D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEBB0CC8-AE64-47A7-B6E1-79607CBE4D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEBB0CC8-AE64-47A7-B6E1-79607CBE4D08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E57026F-CEB0-49EC-8D67-0A52AAC741C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E57026F-CEB0-49EC-8D67-0A52AAC741C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E57026F-CEB0-49EC-8D67-0A52AAC741C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E57026F-CEB0-49EC-8D67-0A52AAC741C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46B1E915-55BD-4FFB-AE6B-D54EC2EE8FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46B1E915-55BD-4FFB-AE6B-D54EC2EE8FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46B1E915-55BD-4FFB-AE6B-D54EC2EE8FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46B1E915-55BD-4FFB-AE6B-D54EC2EE8FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB56693-2519-48BD-BB79-773E8E20D93F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB56693-2519-48BD-BB79-773E8E20D93F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB56693-2519-48BD-BB79-773E8E20D93F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB56693-2519-48BD-BB79-773E8E20D93F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57A5354D-1D35-42D0-ACD2-E692D88F3898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57A5354D-1D35-42D0-ACD2-E692D88F3898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57A5354D-1D35-42D0-ACD2-E692D88F3898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57A5354D-1D35-42D0-ACD2-E692D88F3898}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A455CE5-7384-4A93-BD3E-F52F2A10993D}
+	EndGlobalSection
+EndGlobal
