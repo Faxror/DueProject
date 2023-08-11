@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaireYonetimAPI.DataAccess"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaireYonetimAPI.Business", "DaireYonetimAPI.Business\DaireYonetimAPI.Business.csproj", "{1FB56693-2519-48BD-BB79-773E8E20D93F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaireYonetimAPI.Models", "DaireYonetimAPI.Models\DaireYonetimAPI.Models.csproj", "{57A5354D-1D35-42D0-ACD2-E692D88F3898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaireYonetimAPI.Models", "DaireYonetimAPI.Models\DaireYonetimAPI.Models.csproj", "{57A5354D-1D35-42D0-ACD2-E692D88F3898}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{5351542C-0FEA-426C-A423-5C5B5935B23C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BakiyeSerivceTest.cs", "BakiyeSerivceTest.cs\BakiyeSerivceTest.cs.csproj", "{B074FAA8-62BD-45B9-98F6-1D49DC9ADE49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{57A5354D-1D35-42D0-ACD2-E692D88F3898}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57A5354D-1D35-42D0-ACD2-E692D88F3898}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57A5354D-1D35-42D0-ACD2-E692D88F3898}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B074FAA8-62BD-45B9-98F6-1D49DC9ADE49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B074FAA8-62BD-45B9-98F6-1D49DC9ADE49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B074FAA8-62BD-45B9-98F6-1D49DC9ADE49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B074FAA8-62BD-45B9-98F6-1D49DC9ADE49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B074FAA8-62BD-45B9-98F6-1D49DC9ADE49} = {5351542C-0FEA-426C-A423-5C5B5935B23C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A455CE5-7384-4A93-BD3E-F52F2A10993D}
