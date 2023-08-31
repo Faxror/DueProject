@@ -1,4 +1,6 @@
 ﻿using DaireYonetimAPI.Business.Abstrack;
+using DaireYonetimAPI.Business.Concrete;
+using DaireYonetimAPI.DataAccess;
 using DaireYönetimAPI.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -12,11 +14,16 @@ namespace DaireYonetimAPI.Controllers
     [ApiController]
     public class BakiyeController : ControllerBase
     {
-        private readonly IBakiyeService bakiyeService;        
-        public BakiyeController(IBakiyeService bakiyeService)
+        private readonly IBakiyeService bakiyeService;
+
+        private readonly DaireDbContext _dbContext;
+
+        public BakiyeController(IBakiyeService bakiyeService, DaireDbContext dbContext)
         {
             this.bakiyeService = bakiyeService;
+            _dbContext = dbContext;
         }
+
         [HttpGet]
         [Route("{action}")]
         public IActionResult List()
@@ -28,21 +35,16 @@ namespace DaireYonetimAPI.Controllers
         [Route("debt/{apartmentno}/{paymnet}")]
         public IActionResult Debt(int apartmentno, decimal paymnet)
         {
-            if (paymnet <= 0)
+
+            var updatedBakiye = bakiyeService.calculatecurrentdebt(apartmentno, paymnet);
+
+            if (updatedBakiye == null)
             {
-                return BadRequest("Geçersiz yapilanOdeme değeri. Lütfen pozitif bir değer girin.");
+                return BadRequest();
             }
-
-            Bakiye bakiye = bakiyeService.calculatecurrentdebt(apartmentno, paymnet);
-
-            if (bakiye == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(bakiye.TotalDebt);
-            }
-
+                
+            return Ok(updatedBakiye);
+        }
 
         [HttpGet("debt")]
         public IActionResult Debt()
@@ -58,24 +60,23 @@ namespace DaireYonetimAPI.Controllers
             return Ok(olmayn);
         }
 
+        //[HttpPut]
+        //[Route("{id}")] 
+        //public IActionResult AddDebt([FromBody] Bakiye model, int id)
+        //{
 
-        [HttpPut]
-        [Route("{id}")] 
-        public IActionResult AddDebt([FromBody] Bakiye model, int id)
-        {
+        //    int ApartmentNo = model.ApartmentNo;
+        //    decimal BalanceDue = model.BalanceDue;
 
-            int ApartmentNo = model.ApartmentNo;
-            decimal BalanceDue = model.BalanceDue;
+        //    var bakiye = bakiyeService.AddDebt(ApartmentNo, BalanceDue, id);
 
-            var bakiye = bakiyeService.AddDebt(ApartmentNo, BalanceDue, id);
+        //    if (bakiye == null)
+        //    {
+        //        return BadRequest("Daire bulunamadı!");
+        //    }
 
-            if (bakiye == null)
-            {
-                return BadRequest("Daire bulunamadı!");
-            }
-
-            return Ok(bakiye);
-        }
+        //    return Ok(bakiye);
+        //}
 
         [HttpGet("paymentstatus")]
         public IActionResult PaymentStatus(decimal borcBakiye)
@@ -85,7 +86,7 @@ namespace DaireYonetimAPI.Controllers
         }
 
         [HttpGet("payment")]
-        public IActionResult Paymentsİnfo (int daireId)
+        public IActionResult Paymentsİnfo(int daireId)
         {
             var paymentsinfo = bakiyeService.Payment(daireId);
             return Ok(paymentsinfo);

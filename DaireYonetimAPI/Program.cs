@@ -1,5 +1,6 @@
 using DaireYonetimAPI.  Business.Abstrack;
 using DaireYonetimAPI.Business.Concrete;
+using DaireYonetimAPI.Controllers;
 using DaireYonetimAPI.DataAccess;
 using DaireYonetimAPI.DataAccess.Abstrack;
 using DaireYonetimAPI.DataAccess.Concrete;
@@ -14,9 +15,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IDaireService, DaireManager>();
+builder.Services.AddScoped<EmailSenderService>();
+builder.Services.AddScoped<EmailController>();
 builder.Services.AddScoped<IDaireRepository, DaireRepository>();
 builder.Services.AddScoped<DaireRepository>();
+builder.Services.AddHostedService<EmailSenderService>();
 
+builder.Services.AddHostedService<DailyControlService>();
 
 builder.Services.AddScoped<IBakiyeService, BakiyeManager>();
 builder.Services.AddScoped<IBakiyeRepository, BakiyeRepository>();

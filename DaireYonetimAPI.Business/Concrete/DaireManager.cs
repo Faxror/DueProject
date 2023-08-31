@@ -35,11 +35,7 @@ namespace DaireYonetimAPI.Business.Concrete
                 {
                     id = daireInput.id,
                     ApartmentNo = daireInput.apartmentno,
-                    BalanceDue = daireInput.BalanceDue,
-                    Faiz = 0,
-                    TotalDebt = daireInput.BalanceDue,
-                    LastPaymentDate = daireInput.PaymentdueDate,
-                    PaymentAmount = 0
+                    Paid = daireInput.Bakiye.Paid
                 };
 
                 _dbContext.Bakiyes.Add(newBakiye);
@@ -49,13 +45,8 @@ namespace DaireYonetimAPI.Business.Concrete
                 {
                     id = daireInput.id,
                     apartmentno = daireInput.apartmentno,
-                    apartmentname = daireInput.apartmentname,
+                    familyname = daireInput.familyname,
                     apartmentemail = daireInput.apartmentemail,
-                    apartmentdues = daireInput.apartmentdues,
-                    dateofvalidity = daireInput.dateofvalidity,
-                    payduestatus = daireInput.payduestatus,
-                    BalanceDue = daireInput.BalanceDue,
-                    PaymentdueDate = daireInput.PaymentdueDate,
                     BakiyeId = newBakiye.id
                 };
 
@@ -64,23 +55,33 @@ namespace DaireYonetimAPI.Business.Concrete
 
                 transaction.Commit();
 
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(newDaire, Newtonsoft.Json.Formatting.Indented);
+                string json2 = Newtonsoft.Json.JsonConvert.SerializeObject(newBakiye, Newtonsoft.Json.Formatting.Indented);
+
+                Console.WriteLine(json);
+                Console.WriteLine(json2);
+
+
                 return newDaire;
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
-                Console.WriteLine(ex.InnerException); 
+                Console.WriteLine(ex.InnerException);
                 return null;
+           
+  
             }
+            return null;
         }
     
 
         public void DeleteDaire(int id)
         {
-            var daire = GetDaireByİD(id);
-            if (daire != null) {
+            var daire = GetDaireByİD(id) ;
+           if (daire == null) { 
                 _daireRepository.deletedaire(id);
-                    }
+            }
         }
 
         public List<Daire> GetAllDaires()
@@ -96,6 +97,34 @@ namespace DaireYonetimAPI.Business.Concrete
         public Daire UpdateDaire(Daire daire)
         {
             return _daireRepository.updatedaire(daire);
+        }
+
+        public bool UpdateConfigDue(string newDue, DateTime newUpdate)
+        {
+
+            try
+            {
+                var config = _dbContext.Configs.FirstOrDefault();
+
+                if (config != null)
+                {
+                    config.value = newDue;
+                    config.ModifiedDate = newUpdate;
+
+                    _dbContext.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

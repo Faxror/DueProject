@@ -24,48 +24,43 @@ namespace DaireYonetimAPI.Business.Concrete
             this.bakiyeRepository = bakiyeRepository;
         }
 
-        public Bakiye AddDebt(int ApartmentNo, decimal BalanceDue, int id)
-        {
-            Bakiye bakiye = _dbContext.Bakiyes.Find(id);
+        //public Bakiye AddDebt(int ApartmentNo, decimal BalanceDue, int id)
+        //{
+        //    Bakiye bakiye = _dbContext.Bakiyes.Find(id);
 
-            if (bakiye == null)
-            {
-                bakiye = new Bakiye
-                {
-                    id = id, 
-                    ApartmentNo = ApartmentNo,
-                    BalanceDue = BalanceDue,
-                    LastPaymentDate = DateTime.Now,
-                    PaymentAmount = 0,
-                    Faiz = 0,
-                    TotalDebt = BalanceDue
-                };
+        //    if (bakiye == null)
+        //    {
+        //        bakiye = new Bakiye
+        //        {
+        //            id = id,
+        //            ApartmentNo = ApartmentNo,
+        //            Paid = BalanceDue
+        //        };
 
-                _dbContext.Bakiyes.Add(bakiye);
-            }
-            else
-            {
-                bakiye.BalanceDue += BalanceDue;
-                bakiye.TotalDebt += BalanceDue;
-                bakiye.LastPaymentDate = DateTime.Now;
-            }
+        //        _dbContext.Bakiyes.Add(bakiye);
+        //    }
+        //    else
+        //    {
+        //        bakiye.Paid += BalanceDue;
 
-            using (var transaction = _dbContext.Database.BeginTransaction())
-            {
-                try
-                {
-                    
-                    _dbContext.SaveChanges();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    
-                    Console.WriteLine(ex.InnerException);
+        //    }
+
+        //    using (var transaction = _dbContext.Database.BeginTransaction())
+        //    {
+        //        try
+        //        {
+
+        //            _dbContext.SaveChanges();
+        //            transaction.Commit();
+        //        }
+        //        catch (Exception ex)
+        //        {
+
+        //            Console.WriteLine(ex.InnerException);
 
 
-               
-                    transaction.Rollback();
+
+        //            transaction.Rollback();
 
 
 
@@ -74,38 +69,27 @@ namespace DaireYonetimAPI.Business.Concrete
 
 
 
-                }
-            }
+        //        }
+        //    }
 
-            return bakiye;
-        }
+        //    return bakiye;
+        //}
 
         public List<BakiyePaymentStatusResponse> PaymentStatus(decimal borc)
         {
             var bakiyeler = _dbContext.Bakiyes
-                .Where(c => c.BalanceDue == borc)
+                .Where(c => c.Paid == borc)
                 .Select(c => new BakiyePaymentStatusResponse
                 {
-                    BalanceDue = c.BalanceDue,
-                    Faiz = c.Faiz,
-                    TotalDebt = c.TotalDebt
+                    BalanceDue = c.Paid,
+                   
                 })
                 .ToList();
-
             //decimal faizToplami = bakiyeler.Sum(b => b.Faiz);
             //decimal toplamBorc = bakiyeler.Sum(d => d.ToplamBorc);
-
-            //var response = new Bakiye
-            //{
-            //    BorcBakiye = borc,
-            //    ToplamBorc = toplamBorc,
-            //    Faiz = faizToplami
-            //};
-
+            
             return bakiyeler;
         }
-
-
         public List<Bakiye> GetAllBakiye()
         {
             return bakiyeRepository.GetAllBakiye();
@@ -113,87 +97,65 @@ namespace DaireYonetimAPI.Business.Concrete
 
         public List<BakiyeDebtResponse> GetBakiyeler(bool borcDurumu)
         {
-            var Bakiye = _dbContext.Bakiyes.Where(b => b.BalanceDue == 0 && !borcDurumu || b.BalanceDue > 0 && borcDurumu).Select(c => new BakiyeDebtResponse
+            var Bakiye = _dbContext.Bakiyes.Where(b => b.Paid == 0 && !borcDurumu || b.Paid > 0 && borcDurumu).Select(c => new BakiyeDebtResponse
             {
-                BalanceDue = c.BalanceDue,
-                TotalDebt = c.TotalDebt,
-                ApartmentNo = c.ApartmentNo,
-                Faiz = c.Faiz,
-                PaymentAmount = c.PaymentAmount
-
-
+                 ApartmentNo = c.ApartmentNo,
+                 Paid = c.Paid,
             }).ToList();
-
-                
             return Bakiye;
         }
 
         public Bakiye calculatecurrentdebt (int apartmentno, decimal paymnet)
         {
+            var bakiye = _dbContext.Bakiyes.FirstOrDefault(b => b.Daire.id == apartmentno);
 
-
-            var daire = _dbContext.Daires.FirstOrDefault(d => d.id == apartmentno);
-
-            if (daire == null)
+            if (bakiye == null)
             {
-                
                 return null;
             }
 
-            if (daire.Bakiye == null)
+            var config = _dbContext.Configs.FirstOrDefault();
+
+            if (config == null)
             {
-
-                Bakiye yeniBakiye = new Bakiye
-                {
-                    id = apartmentno,
-                    BalanceDue = daire.BalanceDue,
-                    LastPaymentDate = DateTime.Now,
-                    
-                    Faiz = 5,
-                    TotalDebt = daire.BalanceDue
-                };
-
-                _dbContext.Bakiyes.Add(yeniBakiye);
-                daire.Bakiye = yeniBakiye;
+                return null;
             }
 
-            
-            TimeSpan gecikmeSure = DateTime.Now - daire.Bakiye.LastPaymentDate;
+            DateTime now = DateTime.Now;
+            DateTime lastPaymentDate = new DateTime(now.Year, now.Month, 23);
+
+            if (now.Day > 23)
+            {
+                lastPaymentDate = lastPaymentDate.AddMonths(1);
+            }
+
+            TimeSpan gecikmeSure = now - lastPaymentDate;
             int gecikmeGun = gecikmeSure.Days;
-            decimal faizOrani = 0.0005m;
+            decimal faizOrani = 0.01m;
 
-            if (gecikmeGun > 0)
+            if (bakiye.Paid > 0 && gecikmeGun > 0)
             {
-               
-                decimal gecikmeFaiz = daire.Bakiye.BalanceDue * (gecikmeGun * faizOrani);
-                daire.Bakiye.Faiz += gecikmeFaiz;
+                decimal gecikmeFaiz = bakiye.Paid * (gecikmeGun * faizOrani);
+                bakiye.Paid += gecikmeFaiz;
             }
 
-            daire.Bakiye.TotalDebt = daire.Bakiye.BalanceDue + daire.Bakiye.Faiz;
-            daire.Bakiye.LastPaymentDate = DateTime.Now;
+            config.ModifiedDate = lastPaymentDate;
 
-           
-            decimal kalanBorc = daire.Bakiye.BalanceDue - paymnet;
-            if (kalanBorc <= 0)
+            decimal payment = paymnet;
+            if (bakiye.Paid < 0 && payment > 0)
             {
-                daire.Bakiye.BalanceDue = 0;
-                daire.payduestatus = false;
+                if (payment <= Math.Abs(bakiye.Paid))
+                {
+                    bakiye.Paid += payment;
+                }
+                else
+                {
+                    bakiye.Paid = 0;
+                }            
             }
-            else
-            {
-                daire.Bakiye.BalanceDue = kalanBorc;
-            }
-
-            daire.Bakiye.Faiz = 0;
-            daire.Bakiye.TotalDebt = daire.Bakiye.BalanceDue + daire.Bakiye.Faiz;
-            daire.Bakiye.PaymentAmount = paymnet;
-
-            _dbContext.Entry(daire.Bakiye).State = EntityState.Modified;
-            _dbContext.Entry(daire.Bakiye).Property(b => b.ApartmentNo).IsModified = false;
-
-
             try
             {
+                _dbContext.Entry(bakiye).State = EntityState.Modified;
                 _dbContext.SaveChanges();
             }
             catch (Exception ex)
@@ -201,10 +163,7 @@ namespace DaireYonetimAPI.Business.Concrete
                 Console.WriteLine(ex.InnerException);
                 return null;
             }
-
-            return daire.Bakiye;
-
-
+            return bakiye;
         }
 
         public List<BakiyeResponse> Payment(int daireId)
@@ -212,12 +171,10 @@ namespace DaireYonetimAPI.Business.Concrete
             var payments = _dbContext.Bakiyes
                 .Where(b => b.ApartmentNo == daireId)
                 .Select(b => new BakiyeResponse
-                {
-                    LastPaymentDate = b.LastPaymentDate,
-                    Amountpaid = b.PaymentAmount
+                {                    
+                    Amountpaid = b.Paid,
                 })
                 .ToList();
-
             return payments;
         }
     }

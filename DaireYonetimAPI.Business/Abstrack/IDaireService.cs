@@ -13,13 +13,12 @@ namespace DaireYonetimAPI.Business.Abstrack
 
         Daire CreateDaires(Daire daireInput);
 
-
-
-
         Daire GetDaireByİD(int id);
 
         Daire UpdateDaire(Daire daire);
 
         void DeleteDaire(int id);
+
+        bool UpdateConfigDue(string newDue, DateTime newUpdate);
     }
 }

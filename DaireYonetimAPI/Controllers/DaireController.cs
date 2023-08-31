@@ -29,21 +29,21 @@ namespace DaireYonetimAPI.Controllers
             return Ok(daireService.GetAllDaires());
         }
 
-        [HttpGet]
-        [Route("{action}")]
-        public List<Daire> aylıkodenenler()
-        {
-            var ödenenler = _daire.Daires.Where(d => d.payduestatus).ToList();
-            return ödenenler;
-        }
+        //[HttpGet]
+        //[Route("{action}")]
+        //public List<Daire> aylıkodenenler()
+        //{
+        //    var ödenenler = _daire.Daires.Where(d => d.payduestatus).ToList();
+        //    return ödenenler;
+        //}
 
-        [HttpGet]
-        [Route("{action}")]
-        public List<Daire> ödenmeyenler()
-        {
-            var ödenmeyenler = _daire.Daires.Where(d => !d.payduestatus).ToList();
-            return ödenmeyenler;
-        }
+        //[HttpGet]
+        //[Route("{action}")]
+        //public List<Daire> ödenmeyenler()
+        //{
+        //    var ödenmeyenler = _daire.Daires.Where(d => !d.payduestatus).ToList();
+        //    return ödenmeyenler;
+        //}
 
         [HttpPut]
         [Route("{action}/{id}")]
@@ -59,17 +59,33 @@ namespace DaireYonetimAPI.Controllers
             var createdDaire = daireService.CreateDaires(daireInput);
 
             if (createdDaire != null)
-            {
+            {       
                 return Ok(createdDaire);
             }
             else
             {
                 return BadRequest("Daire oluşturulurken bir hata oluştu.");
             }
+        }
+
+        [HttpPut]
+        [Route("{action}")]
+        public IActionResult UpdateDue(string newdue, DateTime newUpdate)
+        {
+            var updatedue = daireService.UpdateConfigDue(newdue, newUpdate);
+
+            if (updatedue != null)
+            {
+                return Ok("Başarılı şekilde değiştirili");  
+            }
+            else
+            {
+                return BadRequest("hata");
+            }
 
 
 
-
+                
         }
     }
 }
