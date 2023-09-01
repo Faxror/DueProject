@@ -45,18 +45,21 @@ namespace DaireYonetimAPI.Business.Abstrack
                 var _dbContext = scope.ServiceProvider.GetRequiredService<DaireDbContext>();
                 var recipients = _dbContext.Bakiyes.Where(b => b.Paid < 0).ToList();
 
+                string server = "smtp.gmail.com";
+                var servers = _dbContext.Configs.FirstOrDefault(c => c.SmptSenderServers == server) ?? throw new Exception();
 
-
-                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
+                using (SmtpClient smtpClient = new SmtpClient(servers.SmptSenderServers))
                 {
 
                     string users = "rorfax@gmail.com";
                     string passwords = "dvowwttwuluusfzt";
+                    string senderusers = "wingroundrp@gmail.com";
                     var stmpusers = _dbContext.Configs.FirstOrDefault(c => c.SmptEmailAddress == users) ?? throw new Exception();
                     var stmpuserspass = _dbContext.Configs.FirstOrDefault(c => c.SmptEmailPassword == passwords) ?? throw new Exception();
-
+                    var senderuserss = _dbContext.Configs.FirstOrDefault(c => c.SmptSenderUsers == senderusers) ?? throw new Exception();
+                    
                         smtpClient.Port = 587;
-                        smtpClient.Credentials = new NetworkCredential("rorfax@gmail.com", "dvowwttwuluusfzt");
+                        smtpClient.Credentials = new NetworkCredential(stmpusers.SmptEmailAddress, stmpuserspass.SmptEmailPassword);
                         smtpClient.EnableSsl = true;
 
                         foreach (var recipient in recipients)
@@ -81,7 +84,7 @@ namespace DaireYonetimAPI.Business.Abstrack
                                 + $"Güncel Hesap Borcunuz: {currentBalance:C}\n\n"
                                 + "Lütfen Ödeyin.... lütfen";
 
-                            MailMessage mail = new MailMessage("wingroundrp@gmail.com", emailAddress, emailTitle, emailBody);
+                            MailMessage mail = new MailMessage(senderuserss.SmptSenderUsers, emailAddress, emailTitle, emailBody);
                         
                             smtpClient.Send(mail);
                             _logger.LogInformation($"Başarılı Şekilde Gönderildi. Gönderilen Mail {emailAddress}. Gönderilen Aile {familyName}");

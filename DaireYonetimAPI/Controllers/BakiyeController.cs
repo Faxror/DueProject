@@ -60,23 +60,7 @@ namespace DaireYonetimAPI.Controllers
             return Ok(olmayn);
         }
 
-        //[HttpPut]
-        //[Route("{id}")] 
-        //public IActionResult AddDebt([FromBody] Bakiye model, int id)
-        //{
 
-        //    int ApartmentNo = model.ApartmentNo;
-        //    decimal BalanceDue = model.BalanceDue;
-
-        //    var bakiye = bakiyeService.AddDebt(ApartmentNo, BalanceDue, id);
-
-        //    if (bakiye == null)
-        //    {
-        //        return BadRequest("Daire bulunamadı!");
-        //    }
-
-        //    return Ok(bakiye);
-        //}
 
         [HttpGet("paymentstatus")]
         public IActionResult PaymentStatus(decimal borcBakiye)

@@ -105,9 +105,9 @@ namespace DaireYonetimAPI.Business.Concrete
             return Bakiye;
         }
 
-        public Bakiye calculatecurrentdebt (int apartmentno, decimal paymnet)
+        public Bakiye calculatecurrentdebt(int apartmentNo, decimal payment)
         {
-            var bakiye = _dbContext.Bakiyes.FirstOrDefault(b => b.Daire.id == apartmentno);
+            var bakiye = _dbContext.Bakiyes.FirstOrDefault(b => b.Daire.id == apartmentNo);
 
             if (bakiye == null)
             {
@@ -121,8 +121,8 @@ namespace DaireYonetimAPI.Business.Concrete
                 return null;
             }
 
-            DateTime now = DateTime.Now;
-            DateTime lastPaymentDate = new DateTime(now.Year, now.Month, 23);
+            DateTime now = DateTime.UtcNow; 
+            DateTime lastPaymentDate = new DateTime(now.Year, now.Month, 23, 0, 0, 0, DateTimeKind.Utc);
 
             if (now.Day > 23)
             {
@@ -141,30 +141,37 @@ namespace DaireYonetimAPI.Business.Concrete
 
             config.ModifiedDate = lastPaymentDate;
 
-            decimal payment = paymnet;
-            if (bakiye.Paid < 0 && payment > 0)
+            decimal paymentAmount = payment;
+
+            if (bakiye.Paid < 0 && paymentAmount > 0)
             {
-                if (payment <= Math.Abs(bakiye.Paid))
+                if (paymentAmount <= Math.Abs(bakiye.Paid))
                 {
-                    bakiye.Paid += payment;
+                    bakiye.Paid += paymentAmount;
                 }
                 else
                 {
                     bakiye.Paid = 0;
-                }            
+                }
             }
+
             try
             {
                 _dbContext.Entry(bakiye).State = EntityState.Modified;
                 _dbContext.SaveChanges();
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                Console.WriteLine(ex.InnerException);
+               
+                Console.WriteLine("Veritabanı güncelleme hatası: " + ex.Message);
                 return null;
             }
+
+           
+           
             return bakiye;
         }
+
 
         public List<BakiyeResponse> Payment(int daireId)
         {
