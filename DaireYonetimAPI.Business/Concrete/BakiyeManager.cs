@@ -124,25 +124,13 @@ namespace DaireYonetimAPI.Business.Concrete
             }
 
             DateTime now = DateTime.UtcNow; 
-            DateTime lastPaymentDate = new DateTime(now.Year, now.Month, 23, 0, 0, 0, DateTimeKind.Utc);
+            DateTime lastPaymentDatee = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc);
 
-            if (now.Day > 23)
-            {
-                lastPaymentDate = lastPaymentDate.AddMonths(1);
-            }
+           
            
 
-                TimeSpan gecikmeSure = now - lastPaymentDate;
-            int gecikmeGun = gecikmeSure.Days;
-            decimal faizOrani = 0.01m;
 
-            if (bakiye.Paid > 0 && gecikmeGun > 0 && now.Day > 23)
-            {
-                decimal gecikmeFaiz = bakiye.Paid * (gecikmeGun * faizOrani);
-                bakiye.Paid += gecikmeFaiz;
-            }
-
-            config.ModifiedDate = lastPaymentDate;
+            config.ModifiedDate = lastPaymentDatee;
 
             decimal paymentAmount = payment;
 
