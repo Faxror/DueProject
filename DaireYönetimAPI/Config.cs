@@ -9,7 +9,7 @@ namespace DaireYönetimAPI.Entity
     public class Config
     {
         public int Id { get; set; }
-
+        
         public string  value { get; set; }
 
         public DateTime ModifiedDate { get; set; }

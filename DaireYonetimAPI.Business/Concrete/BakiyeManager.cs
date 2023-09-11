@@ -4,6 +4,7 @@ using DaireYonetimAPI.DataAccess.Abstrack;
 using DaireYönetimAPI.Entity;
 using DaireYonetimAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace DaireYonetimAPI.Business.Concrete
     {
         private readonly DaireDbContext _dbContext;
         private readonly IBakiyeRepository bakiyeRepository;
+        private readonly ILogger<BakiyeManager> logger;
 
         public BakiyeManager(DaireDbContext dbContext, IBakiyeRepository bakiyeRepository)
         {
@@ -128,12 +130,13 @@ namespace DaireYonetimAPI.Business.Concrete
             {
                 lastPaymentDate = lastPaymentDate.AddMonths(1);
             }
+           
 
-            TimeSpan gecikmeSure = now - lastPaymentDate;
+                TimeSpan gecikmeSure = now - lastPaymentDate;
             int gecikmeGun = gecikmeSure.Days;
             decimal faizOrani = 0.01m;
 
-            if (bakiye.Paid > 0 && gecikmeGun > 0)
+            if (bakiye.Paid > 0 && gecikmeGun > 0 && now.Day > 23)
             {
                 decimal gecikmeFaiz = bakiye.Paid * (gecikmeGun * faizOrani);
                 bakiye.Paid += gecikmeFaiz;
