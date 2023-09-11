@@ -79,12 +79,13 @@ namespace DaireYonetimAPI.Business.Abstrack
                             string emailAddress = joinedRecipient.Daire.apartmentemail;
                             string familyName = joinedRecipient.Daire.familyname;
                             string emailTitle = "Fax Apartment Aidat Ödeme Hatırlatması";
+                            var emailtitleconfigs = _dbContext.Configs.FirstOrDefault(i => i.SmptUsersMailTitle == emailTitle) ?? throw new Exception();
                             string emailBody = $"Merhaba Sayın Apartman Üyesi, {familyName} Ailesi\n\n"
                                 + "Nasılsınız? Aidet Ödemiyorsunuz ama bizi üzüyorsunuz :/\n\n"
                                 + $"Güncel Hesap Borcunuz: {currentBalance:C}\n\n"
                                 + "Lütfen Ödeyin.... lütfen";
 
-                            MailMessage mail = new MailMessage(senderuserss.SmptSenderUsers, emailAddress, emailTitle, emailBody);
+                            MailMessage mail = new MailMessage(senderuserss.SmptSenderUsers, emailAddress, emailtitleconfigs.SmptUsersMailTitle, emailBody);
                         
                             smtpClient.Send(mail);
                             _logger.LogInformation($"Başarılı Şekilde Gönderildi. Gönderilen Mail {emailAddress}. Gönderilen Aile {familyName}");

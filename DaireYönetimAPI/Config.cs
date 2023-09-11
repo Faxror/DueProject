@@ -17,5 +17,6 @@ namespace DaireYönetimAPI.Entity
         public string SmptEmailPassword { get; set; }
         public string SmptSenderUsers { get; set; }
         public string SmptSenderServers { get; set; }
+        public string SmptUsersMailTitle { get; set; }
     }
 }
