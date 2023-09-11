@@ -3,6 +3,7 @@ using System;
 using DaireYonetimAPI.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DaireYonetimAPI.DataAccess.Migrations
 {
     [DbContext(typeof(DaireDbContext))]
-    partial class DaireDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230911115401_mig_update_bakiyes")]
+    partial class mig_update_bakiyes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,9 +80,6 @@ namespace DaireYonetimAPI.DataAccess.Migrations
                     b.Property<string>("SmptUsersMailTitle")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<decimal>("TotalLastPayment")
-                        .HasColumnType("numeric");
 
                     b.Property<string>("value")
                         .IsRequired()

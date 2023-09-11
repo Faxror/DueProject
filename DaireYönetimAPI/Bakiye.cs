@@ -15,6 +15,7 @@ namespace DaireYönetimAPI.Entity
         public int ApartmentNo { get; set; }
 
         public decimal Paid { get; set; }
+        public decimal LastPayment { get; set; }
 
         // Bakiye ile Daire arasındaki ilişkiyi tanımlıyoruz
         public int? ApartmentId { get; set; }

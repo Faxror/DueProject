@@ -18,5 +18,6 @@ namespace DaireYönetimAPI.Entity
         public string SmptSenderUsers { get; set; }
         public string SmptSenderServers { get; set; }
         public string SmptUsersMailTitle { get; set; }
+        public decimal TotalLastPayment { get; set; }
     }
 }

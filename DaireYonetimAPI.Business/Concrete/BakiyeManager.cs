@@ -134,6 +134,10 @@ namespace DaireYonetimAPI.Business.Concrete
 
             decimal paymentAmount = payment;
 
+            bakiye.LastPayment += payment;
+
+            config.TotalLastPayment += payment;
+
             if (bakiye.Paid < 0 && paymentAmount > 0)
             {
                 if (paymentAmount <= Math.Abs(bakiye.Paid))
