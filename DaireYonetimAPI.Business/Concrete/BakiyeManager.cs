@@ -150,17 +150,11 @@ namespace DaireYonetimAPI.Business.Concrete
                 }
             }
 
-            try
-            {
+            
                 _dbContext.Entry(bakiye).State = EntityState.Modified;
                 _dbContext.SaveChanges();
-            }
-            catch (DbUpdateException ex)
-            {
-               
-                Console.WriteLine("Veritabanı güncelleme hatası: " + ex.Message);
-                return null;
-            }
+            
+           
 
            
            

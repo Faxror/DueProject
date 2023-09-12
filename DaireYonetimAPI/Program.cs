@@ -23,9 +23,12 @@ builder.Services.AddHostedService<EmailSenderService>();
 
 builder.Services.AddHostedService<DailyControlService>();
 
+builder.Services.AddHostedService<TaxSenderService>();
+
 builder.Services.AddScoped<IBakiyeService, BakiyeManager>();
 builder.Services.AddScoped<IBakiyeRepository, BakiyeRepository>();
 builder.Services.AddScoped<BakiyeRepository>();
+builder.Services.AddScoped<TaxSenderService>();
 
 builder.Services.AddDbContext<DaireDbContext>();
 
