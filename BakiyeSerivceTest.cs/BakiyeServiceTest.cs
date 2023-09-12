@@ -22,7 +22,7 @@ namespace BakiyeSerivceTest.cs
     
 
         [Test]
-        public void BakiyeTo_ListTo_Fix()
+        public void Bakiye_Returns_NotNull()
         {
             // Arrange
             var db = new DaireDbContext();
@@ -44,7 +44,7 @@ namespace BakiyeSerivceTest.cs
         }
 
         [Test]
-        public void test_notnull_payment()
+        public void Payments_Returns_NotNull()
         {
             // Arrange
             var db = new DaireDbContext();
@@ -60,7 +60,7 @@ namespace BakiyeSerivceTest.cs
         }
 
         [Test]
-        public void test_calculatecurrentdebt_notnull_payment()
+        public void CalculateCurrentCebt_Returns_Null()
         {
             // Arrange
             var db = new DaireDbContext();
@@ -68,7 +68,7 @@ namespace BakiyeSerivceTest.cs
             var bakiyeManager = new BakiyeManager(db, bakiyeRepositoryMock.Object);
 
             // Act
-            var result = bakiyeManager.calculatecurrentdebt(14, 200);
+            var result = bakiyeManager.CalculateCurrentDebt(14, 200);
 
             // Assert
             Assert.IsNull(result);
@@ -76,7 +76,7 @@ namespace BakiyeSerivceTest.cs
 
 
         [Test]
-        public void test_getbakiyes_notnull_borcdurumuistrue()
+        public void GetBakiyes_Returns_True_Notnull_NotEmpty()
         {  
             // Arrange
             var db = new DaireDbContext();
@@ -92,7 +92,7 @@ namespace BakiyeSerivceTest.cs
         }
         
         [Test]
-        public void test_getbakiyes_notnull_borcdurumuisfalse()
+        public void GetBakiyes_Returns_False_Notnull_NotEmpty()
         {
             // Arrange
             var db = new DaireDbContext();
@@ -108,7 +108,7 @@ namespace BakiyeSerivceTest.cs
         }
 
         [Test]
-        public void test_paymentstatus_notnull_notempty()
+        public void paymentstatus_returns_notnull()
         {
             // Arrange
             var db = new DaireDbContext();
