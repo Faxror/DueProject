@@ -10,7 +10,7 @@ namespace DiareControllerTest
     public class Tests
     {
         [Test]
-        public void testto_daire_list()
+        public void Dairelist_Returns_NotNull()
         {
             // Arrange
             var db = new DaireDbContext();
@@ -25,7 +25,7 @@ namespace DiareControllerTest
 
 
         [Test]
-        public void UpdateDaire_ReturnsNonNull()
+        public void UpdateDaire_Returns_NonNull()
         {
             // Arrange
             var mockDaireRepository = new Mock<IDaireRepository>();
@@ -34,7 +34,7 @@ namespace DiareControllerTest
             var manager = new DaireManager(mockDaireRepository.Object, mockDbContext.Object);
 
             // Set up mock behavior
-            mockDaireRepository.Setup(repo => repo.updatedaire(It.IsAny<Daire>()))
+            mockDaireRepository.Setup(repo => repo.UpdateDaire(It.IsAny<Daire>()))
                                .Returns(new Daire());
 
             // Act
@@ -48,7 +48,7 @@ namespace DiareControllerTest
 
 
         [Test]
-        public void UpdateConfigDue_ReturnsNonNull()
+        public void UpdateConfigDue_Returns_NotNull()
         {
             // Arrange
             var mockDbContext = new DaireDbContext();
