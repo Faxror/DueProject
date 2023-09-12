@@ -11,12 +11,12 @@ namespace DaireYonetimAPI.DataAccess.Abstrack
     {
         List<Daire> GetAllDaires();
 
-        Daire cratedaires(Daire daire);
+        Daire CrateDaires(Daire daire);
 
-        Daire getdairebyid(int id);
+        Daire GetDaireByid(int id);
 
-        Daire updatedaire(Daire daire);
+        Daire UpdateDaire(Daire daire);
 
-        void deletedaire(int id);
+        void DeleteDaire(int id);
     }
 }

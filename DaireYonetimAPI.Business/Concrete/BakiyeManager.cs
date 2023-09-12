@@ -107,7 +107,7 @@ namespace DaireYonetimAPI.Business.Concrete
             return Bakiye;
         }
 
-        public Bakiye calculatecurrentdebt(int apartmentNo, decimal payment)
+        public Bakiye CalculateCurrentDebt(int apartmentNo, decimal payment)
         {
             var bakiye = _dbContext.Bakiyes.FirstOrDefault(b => b.Daire.id == apartmentNo);
 
@@ -164,7 +164,7 @@ namespace DaireYonetimAPI.Business.Concrete
 
         public List<BakiyeResponse> Payment(int daireId)
         {
-            var payments = _dbContext.Bakiyes
+            List<BakiyeResponse> payments = _dbContext.Bakiyes
                 .Where(b => b.ApartmentNo == daireId)
                 .Select(b => new BakiyeResponse
                 {                    

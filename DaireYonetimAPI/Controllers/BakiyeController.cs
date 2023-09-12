@@ -36,7 +36,7 @@ namespace DaireYonetimAPI.Controllers
         public IActionResult Debt(int apartmentno, decimal paymnet)
         {
 
-            var updatedBakiye = bakiyeService.calculatecurrentdebt(apartmentno, paymnet);
+            var updatedBakiye = bakiyeService.CalculateCurrentDebt(apartmentno, paymnet);
 
             if (updatedBakiye == null)
             {

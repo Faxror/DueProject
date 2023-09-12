@@ -17,16 +17,16 @@ namespace DaireYonetimAPI.DataAccess.Concrete
             _dbContext = dbContext;
         }
 
-        public Daire cratedaires(Daire daire)
+        public Daire CrateDaires(Daire daire)
         {
             _dbContext.Daires.Add(daire);
             _dbContext.SaveChanges();
             return daire;
         }
 
-        public void deletedaire(int id)
+        public void DeleteDaire(int id)
         {
-            var deleteddaire = getdairebyid(id);
+            var deleteddaire = GetDaireByid(id);
             _dbContext.Daires.Remove(deleteddaire);
             _dbContext.SaveChanges();
 
@@ -37,12 +37,12 @@ namespace DaireYonetimAPI.DataAccess.Concrete
             return _dbContext.Daires.ToList();
         }
 
-        public Daire getdairebyid(int id)
+        public Daire GetDaireByid(int id)
         {
           return _dbContext.Daires.Find(id);
         }
 
-        public Daire updatedaire(Daire daire)
+        public Daire UpdateDaire(Daire daire)
         {
             _dbContext.Daires.Update(daire);
             _dbContext.SaveChanges();

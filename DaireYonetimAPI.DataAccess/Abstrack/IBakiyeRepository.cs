@@ -13,10 +13,6 @@ namespace DaireYonetimAPI.DataAccess.Abstrack
 
         Bakiye GetByBakiyeİd(int id);
 
-        Bakiye bakiyekle();
 
-        Bakiye bakiyeguncelle();
-
-        Bakiye bakiyesil();
     }
 }

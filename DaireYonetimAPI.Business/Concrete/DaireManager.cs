@@ -80,7 +80,7 @@ namespace DaireYonetimAPI.Business.Concrete
         {
             var daire = GetDaireByİD(id) ;
            if (daire == null) { 
-                _daireRepository.deletedaire(id);
+                _daireRepository.DeleteDaire(id);
             }
         }
 
@@ -91,12 +91,12 @@ namespace DaireYonetimAPI.Business.Concrete
 
         public Daire GetDaireByİD(int id)
         {
-           return _daireRepository.getdairebyid(id);
+           return _daireRepository.GetDaireByid(id);
         }
 
         public Daire UpdateDaire(Daire daire)
         {
-            return _daireRepository.updatedaire(daire);
+            return _daireRepository.UpdateDaire(daire);
         }
 
         public bool UpdateConfigDue(string newDue, DateTime newUpdate)

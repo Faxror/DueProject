@@ -10,7 +10,7 @@ namespace DaireYonetimAPI.Business.Abstrack
 {
     public interface IBakiyeService
     {
-        Bakiye calculatecurrentdebt(int daireNo, decimal yapilanOdeme);
+        Bakiye CalculateCurrentDebt(int daireNo, decimal yapilanOdeme);
         //Bakiye AddDebt(int ApartmentNo, decimal BalanceDue, int id);
         List<Bakiye> GetAllBakiye();
         List<BakiyeDebtResponse> GetBakiyeler(bool borcDurumu);
