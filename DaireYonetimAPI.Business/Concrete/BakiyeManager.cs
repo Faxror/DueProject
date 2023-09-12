@@ -118,17 +118,9 @@ namespace DaireYonetimAPI.Business.Concrete
 
             var config = _dbContext.Configs.FirstOrDefault();
 
-            if (config == null)
-            {
-                return null;
-            }
 
             DateTime now = DateTime.UtcNow; 
             DateTime lastPaymentDatee = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc);
-
-           
-           
-
 
             config.ModifiedDate = lastPaymentDatee;
 
@@ -154,13 +146,8 @@ namespace DaireYonetimAPI.Business.Concrete
                 _dbContext.Entry(bakiye).State = EntityState.Modified;
                 _dbContext.SaveChanges();
             
-           
-
-           
-           
             return bakiye;
         }
-
 
         public List<BakiyeResponse> Payment(int daireId)
         {
