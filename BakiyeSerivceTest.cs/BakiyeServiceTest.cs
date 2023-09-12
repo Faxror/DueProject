@@ -60,7 +60,7 @@ namespace BakiyeSerivceTest.cs
         }
 
         [Test]
-        public void CalculateCurrentCebt_Returns_Null()
+        public void CalculateCurrentDebt_Returns_Null()
         {
             // Arrange
             var db = new DaireDbContext();
