@@ -35,38 +35,29 @@ namespace DaireYonetimAPI.Controllers
         [Route("debt/{apartmentno}/{paymnet}")]
         public IActionResult Debt(int apartmentno, decimal paymnet)
         {
-
-            var updatedBakiye = bakiyeService.CalculateCurrentDebt(apartmentno, paymnet);
-
-            if (updatedBakiye == null)
-            {
-                return BadRequest();
-            }
-                
+            var updatedBakiye = bakiyeService.CalculateCurrentDebt(apartmentno, paymnet);                
             return Ok(updatedBakiye);
         }
 
         [HttpGet("debt")]
         public IActionResult Debt()
         {
-            var borclu = bakiyeService.GetBakiyeler(true);
-            return Ok(borclu);
+            var debt = bakiyeService.GetBakiyeler(true);
+            return Ok(debt);
         }
 
         [HttpGet("no-debt")]
         public IActionResult nodebt()
         {
-            var olmayn = bakiyeService.GetBakiyeler(false);
-            return Ok(olmayn);
+            var nodebt = bakiyeService.GetBakiyeler(false);
+            return Ok(nodebt);
         }
-
-
 
         [HttpGet("paymentstatus")]
         public IActionResult PaymentStatus(decimal borcBakiye)
         {
-            var bakiyedurum = bakiyeService.PaymentStatus(borcBakiye);
-            return Ok(bakiyedurum);
+            var bakiyestatus = bakiyeService.PaymentStatus(borcBakiye);
+            return Ok(bakiyestatus);
         }
 
         [HttpGet("payment")]
