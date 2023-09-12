@@ -45,21 +45,17 @@ namespace DaireYonetimAPI.Business.Abstrack
                 var _dbContext = scope.ServiceProvider.GetRequiredService<DaireDbContext>();
                 var recipients = _dbContext.Bakiyes.Where(b => b.Paid < 0).ToList();
 
-                string server = "smtp.gmail.com";
-                var servers = _dbContext.Configs.FirstOrDefault(c => c.SmptSenderServers == server) ?? throw new Exception();
+              
 
-                using (SmtpClient smtpClient = new SmtpClient(servers.SmptSenderServers))
+
+                var stmp = _dbContext.Configs.FirstOrDefault() ?? throw new Exception();
+
+                using (SmtpClient smtpClient = new SmtpClient(stmp.SmptSenderServers))
                 {
 
-                    string users = "rorfax@gmail.com";
-                    string passwords = "dvowwttwuluusfzt";
-                    string senderusers = "wingroundrp@gmail.com";
-                    var stmpusers = _dbContext.Configs.FirstOrDefault(c => c.SmptEmailAddress == users) ?? throw new Exception();
-                    var stmpuserspass = _dbContext.Configs.FirstOrDefault(c => c.SmptEmailPassword == passwords) ?? throw new Exception();
-                    var senderuserss = _dbContext.Configs.FirstOrDefault(c => c.SmptSenderUsers == senderusers) ?? throw new Exception();
                     
                         smtpClient.Port = 587;
-                        smtpClient.Credentials = new NetworkCredential(stmpusers.SmptEmailAddress, stmpuserspass.SmptEmailPassword);
+                        smtpClient.Credentials = new NetworkCredential(stmp.SmptEmailAddress, stmp.SmptEmailPassword);
                         smtpClient.EnableSsl = true;
 
                         foreach (var recipient in recipients)
@@ -79,13 +75,12 @@ namespace DaireYonetimAPI.Business.Abstrack
                             string emailAddress = joinedRecipient.Daire.apartmentemail;
                             string familyName = joinedRecipient.Daire.familyname;
                             string emailTitle = "Fax Apartment Aidat Ödeme Hatırlatması";
-                            var emailtitleconfigs = _dbContext.Configs.FirstOrDefault(i => i.SmptUsersMailTitle == emailTitle) ?? throw new Exception();
                             string emailBody = $"Merhaba Sayın Apartman Üyesi, {familyName} Ailesi\n\n"
                                 + "Nasılsınız? Aidet Ödemiyorsunuz ama bizi üzüyorsunuz :/\n\n"
                                 + $"Güncel Hesap Borcunuz: {currentBalance:C}\n\n"
                                 + "Lütfen Ödeyin.... lütfen";
 
-                            MailMessage mail = new MailMessage(senderuserss.SmptSenderUsers, emailAddress, emailtitleconfigs.SmptUsersMailTitle, emailBody);
+                            MailMessage mail = new MailMessage(stmp.SmptSenderUsers, emailAddress, stmp.SmptUsersMailTitle, emailBody);
                         
                             smtpClient.Send(mail);
                             _logger.LogInformation($"Başarılı Şekilde Gönderildi. Gönderilen Mail {emailAddress}. Gönderilen Aile {familyName}");
