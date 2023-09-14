@@ -19,15 +19,20 @@ namespace BakiyeSerivceTest.cs
 {
     public class BakiyeServiceTest
     {
-    
+
+
+        private readonly DaireDbContext db;
+
+        private BakiyeRepository bakiyeRepository;
+
+        private BakiyeManager manager;
 
         [Test]
         public void Bakiye_Returns_NotNull()
         {
             // Arrange
-            var db = new DaireDbContext();
-            var bakiyeRepository = new BakiyeRepository(db);
-            var manager = new BakiyeManager(db, bakiyeRepository);
+            
+            manager = new BakiyeManager(db, bakiyeRepository);
 
             // Act
             var bakiyeList = manager.GetAllBakiye();
@@ -47,9 +52,8 @@ namespace BakiyeSerivceTest.cs
         public void Payments_Returns_NotNull()
         {
             // Arrange
-            var db = new DaireDbContext();
-            var bakiyeRepository = new BakiyeRepository(db);
-            var manager = new BakiyeManager(db, bakiyeRepository);
+            
+             manager = new BakiyeManager(db, bakiyeRepository);
             int ap = 12;
 
             // Act
@@ -79,9 +83,8 @@ namespace BakiyeSerivceTest.cs
         public void GetBakiyes_Returns_True_Notnull_NotEmpty()
         {  
             // Arrange
-            var db = new DaireDbContext();
-            var bakiyeRepository = new BakiyeRepository(db);
-            var manager = new BakiyeManager(db, bakiyeRepository);
+           
+             manager = new BakiyeManager(db, bakiyeRepository);
 
             // Act
             var GetBakiye = manager.GetBakiyeler(true);
@@ -95,9 +98,8 @@ namespace BakiyeSerivceTest.cs
         public void GetBakiyes_Returns_False_Notnull_NotEmpty()
         {
             // Arrange
-            var db = new DaireDbContext();
-            var bakiyeRepository = new BakiyeRepository(db);
-            var manager = new BakiyeManager(db, bakiyeRepository);
+           
+             manager = new BakiyeManager(db, bakiyeRepository);
 
             // Act
             var GetBakiye = manager.GetBakiyeler(false);    
@@ -111,9 +113,8 @@ namespace BakiyeSerivceTest.cs
         public void paymentstatus_returns_notnull()
         {
             // Arrange
-            var db = new DaireDbContext();
-            var bakiyeRepository = new BakiyeRepository(db);
-            var manager = new BakiyeManager(db, bakiyeRepository);
+           
+             manager = new BakiyeManager(db, bakiyeRepository);
 
             // Act
             var GetPaymentStatus = manager.PaymentStatus(200);

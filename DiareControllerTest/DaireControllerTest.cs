@@ -9,13 +9,36 @@ namespace DiareControllerTest
 {
     public class Tests
     {
+        private readonly DaireDbContext db;
+
+        private  DaireManager manager;
+
+
+        private Mock<IDaireRepository> mockDaireRepository;
+        private Mock<DaireDbContext> mockDbContext;
+
+        [SetUp]
+        public void Setup()
+        {
+            mockDaireRepository = new Mock<IDaireRepository>();
+            mockDbContext = new Mock<DaireDbContext>();
+
+
+            manager = new DaireManager(mockDaireRepository.Object, mockDbContext.Object);
+        }
+
+
+        public Tests(DaireDbContext db, DaireManager manager)
+        {
+            this.db = db;
+            this.manager = manager;
+        }
+
         [Test]
         public void Dairelist_Returns_NotNull()
         {
-            // Arrange
-            var db = new DaireDbContext();
-            var DaireRepository = new DaireRepository(db);
-            var manager = new DaireManager(DaireRepository, db);
+          
+           
             // Act
             var DaireList = manager.GetAllDaires();
             // Assert
@@ -28,10 +51,9 @@ namespace DiareControllerTest
         public void UpdateDaire_Returns_NonNull()
         {
             // Arrange
-            var mockDaireRepository = new Mock<IDaireRepository>();
-            var mockDbContext = new Mock<DaireDbContext>();
+           
 
-            var manager = new DaireManager(mockDaireRepository.Object, mockDbContext.Object);
+           
 
             // Set up mock behavior
             mockDaireRepository.Setup(repo => repo.UpdateDaire(It.IsAny<Daire>()))
@@ -51,12 +73,7 @@ namespace DiareControllerTest
         public void UpdateConfigDue_Returns_NotNull()
         {
             // Arrange
-            var mockDbContext = new DaireDbContext();
-            var mockDaireRepository = new DaireRepository(mockDbContext);
-
-
-            var manager = new DaireManager(mockDaireRepository, mockDbContext);
-
+           
             DateTime daires = DateTime.Now;
             string newDue = "200";
 
