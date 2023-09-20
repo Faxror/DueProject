@@ -35,7 +35,7 @@ namespace DiareControllerTest
         }
 
         [Test]
-        public void Dairelist_Returns_NotNull()
+        public void Dairelist_ReturnsAllList_NotNull()
         {
           
            
@@ -48,7 +48,7 @@ namespace DiareControllerTest
 
 
         [Test]
-        public void UpdateDaire_Returns_NonNull()
+        public void UpdateDaire_ReturnsUpdate_NonNull()
         {
             // Arrange
            
@@ -70,7 +70,7 @@ namespace DiareControllerTest
 
 
         [Test]
-        public void UpdateConfigDue_Returns_NotNull()
+        public void UpdateConfigDue_ReturnsConfigControll_NotNull()
         {
             // Arrange
            
