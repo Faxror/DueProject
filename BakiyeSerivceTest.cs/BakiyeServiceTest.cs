@@ -28,7 +28,7 @@ namespace BakiyeSerivceTest.cs
         private BakiyeManager manager;
 
         [Test]
-        public void Bakiye_Returns_NotNull()
+        public void Bakiye_ReturnsAllList_NotNull()
         {
             // Arrange
             
@@ -49,7 +49,7 @@ namespace BakiyeSerivceTest.cs
         }
 
         [Test]
-        public void Payments_Returns_NotNull()
+        public void Payments_ReturnsList_NotNull()
         {
             // Arrange
             
@@ -64,7 +64,7 @@ namespace BakiyeSerivceTest.cs
         }
 
         [Test]
-        public void CalculateCurrentDebt_Returns_Null()
+        public void CalculateCurrentDebt_ReturnsPayment_Null()
         {
             // Arrange
             var db = new DaireDbContext();
@@ -110,7 +110,7 @@ namespace BakiyeSerivceTest.cs
         }
 
         [Test]
-        public void paymentstatus_returns_notnull()
+        public void PaymentStatus_ReturnsAllStatus_NotNull()
         {
             // Arrange
            
