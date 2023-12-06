@@ -48,7 +48,7 @@ namespace DaireYonetimAPI.Business.Abstrack
 
                 if (Paid.Paid > 0 && gecikmeGun > 0 && now.Day > 23)
                 {
-                    decimal gecikmeFaiz = Paid.Paid * (gecikmeGun * faizOrani);
+                    decimal gecikmeFaiz = Paid.Paid / (gecikmeGun / faizOrani);
                     Paid.Paid += gecikmeFaiz;
                 }
             }
@@ -57,7 +57,7 @@ namespace DaireYonetimAPI.Business.Abstrack
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(SenderTax, null, TimeSpan.Zero, TimeSpan.FromDays(23));
+            _timer = new Timer(SenderTax, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
             return Task.CompletedTask;
         }
 

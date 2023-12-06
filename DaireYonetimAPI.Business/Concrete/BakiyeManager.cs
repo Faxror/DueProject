@@ -136,7 +136,7 @@ namespace DaireYonetimAPI.Business.Concrete
                 {
                     bakiye.Paid += paymentAmount;
                 }
-                else
+                else // 10 günlük 100 bin tl
                 {
                     bakiye.Paid = 0;
                 }
