@@ -44,11 +44,11 @@ namespace DaireYonetimAPI.Business.Abstrack
 
                 TimeSpan gecikmeSure = now - lastPaymentDate;
                 int gecikmeGun = gecikmeSure.Days;
-                decimal faizOrani = 0.01m;
+                decimal faizOranii = 0.01m;
 
                 if (Paid.Paid > 0 && gecikmeGun > 0 && now.Day > 23)
                 {
-                    decimal gecikmeFaiz = Paid.Paid / (gecikmeGun / faizOrani);
+                    decimal gecikmeFaiz = Paid.Paid / (gecikmeGun / faizOranii);
                     Paid.Paid += gecikmeFaiz;
                 }
             }
